@@ -1,0 +1,377 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+
+  --shadow-color1: rgba(255, 255, 255, 0.502)
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body {
+  background-color: #aca5a5;
+  color: #202020;
+  font-family: poppins, sans-serif;
+  margin: 0px;
+}
+
+header {
+  background: linear-gradient(to bottom, #d8ade62b 50%, transparent);
+  width: 100%;
+
+}
+
+.shadow-down-dark {
+  box-shadow: 0px 2px 10px 0px var(--shadow-color1);
+  padding: 5px;
+}
+
+.text-success {
+  color: rgba(33, 155, 33, 0.919);
+}
+
+.text-danger {
+  color: rgba(171, 51, 51, 0.912);
+}
+
+.lh-1 {
+  line-height: normal;
+}
+
+
+.text-center {
+  text-align: center;
+}
+
+.flex-row {
+  display: flex;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.fs-medium {
+  font-size: large;
+}
+
+.fs-large {
+  font-size: x-large;
+}
+
+.fs-xlarge {
+  font-size: xx-large;
+}
+
+.jc-between {
+  justify-content: space-between;
+}
+
+.jc-center {
+  justify-content: center;
+}
+
+.jc-around {
+  justify-content: space-around;
+}
+
+.jc-around-20 {
+  width: 20vw;
+  min-width: 20vw;
+  max-width: 30vw;
+  justify-content: space-around;
+}
+
+.al-center {
+  align-items: center;
+}
+
+/* margin in x direction with 4*5 = 20px  */
+.mx-4 {
+  --margin-factor: 4;
+  margin-left: calc(var(--margin-factor)*5px);
+  margin-right: calc(var(--margin-factor)*5px);
+}
+
+.mx-2 {
+  --margin-factor: 2;
+  margin-left: calc(var(--margin-factor)*5px);
+  margin-right: calc(var(--margin-factor)*5px);
+}
+
+.mx-1 {
+  --margin-factor: 1;
+  margin-left: calc(var(--margin-factor)*5px);
+  margin-right: calc(var(--margin-factor)*5px);
+}
+
+.my-4 {
+  --margin-factor: 4;
+  margin-top: calc(var(--margin-factor)*5px);
+  margin-bottom: calc(var(--margin-factor)*5px);
+}
+
+.my-2 {
+  --margin-factor: 2;
+  margin-top: calc(var(--margin-factor)*5px);
+  margin-bottom: calc(var(--margin-factor)*5px);
+}
+
+.my-1 {
+  --margin-factor: 1;
+  margin-top: calc(var(--margin-factor)*5px);
+  margin-bottom: calc(var(--margin-factor)*5px);
+}
+
+
+.project-card-container {
+  height: 75%;
+  overflow-y: auto;
+  flex-wrap: wrap;
+}
+
+div.progress::after {
+  content: "";
+  display: block;
+  width: var(--progress);
+  height: 10px;
+  background-color: dodgerblue;
+}
+
+.roundx-40 {
+  height: 40px;
+  width: fit-content;
+  padding: 0px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  background-color: lightcoral;
+}
+
+.user-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.msg-card {
+  background-color: #7cb3be2e;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+
+}
+
+
+.msg-card-footer {
+  height: 20px;
+}
+
+.msg-card-content::before {
+  content: "";
+  display: block;
+  border-top: 1px solid;
+  width: 100%;
+  margin-top: 5px;
+  opacity: 15%;
+}
+
+.msg-card-content::after {
+  content: "";
+  display: block;
+  border-bottom: 1px solid;
+  width: 100%;
+  margin-bottom: 5px;
+  opacity: 15%;
+}
+
+/* list styles */
+
+.list0 {
+  /* No css for list0 */
+}
+
+
+.list1 {
+  border: 1px solid blue;
+  padding: 10px;
+}
+
+.list2 {
+  border: 1px solid blue;
+  padding: 10px;
+  list-style-position: inside;
+}
+
+.list3 {
+  border: 1px solid blue;
+  padding: 10px;
+  list-style-position: inside;
+  list-style-type: none;
+}
+
+.list4 {
+  /* border: 1px solid rgb(55, 55, 121); */
+  background-color: rgb(17, 56, 69);
+  padding: 10px;
+  color: antiquewhite;
+  list-style-position: inside;
+  list-style-type: none;
+  border-radius: 5px;
+}
+
+.list5 {
+  /* border: 1px solid rgb(55, 55, 121); */
+  background-color: rgb(17, 56, 69);
+  padding: 10px;
+  color: antiquewhite;
+  list-style-position: inside;
+  list-style-type: none;
+  border-radius: 5px;
+  width: 200px;
+}
+
+.list5 li {
+  background-color: #3f6a8ad9;
+  margin: 5px 0px;
+  font-size: medium;
+  padding-left: 8px;
+
+}
+
+
+.list6 {
+  /* border: 1px solid rgb(55, 55, 121); */
+  background-image: url("../public/gradient\ 2.png");
+  padding: 10px;
+  color: antiquewhite;
+  list-style-position: inside;
+  list-style-type: none;
+  border-radius: 5px;
+  width: 200px;
+}
+
+.list6 li {
+  background-image: url("../public/gradient\ 1.png");
+  background-color: #977c7cad;
+  background-blend-mode: screen;
+  margin: 5px 0px;
+  font-size: medium;
+  padding-left: 8px;
+  color: #202020;
+
+}
+
+
+.list6 li:hover {
+  background-image: none;
+  cursor: pointer;
+  background-color: #ffffff3d;
+  list-style-type: disclosure-closed;
+
+}
+
+/* =================================== */
+
+.list7 {
+  /* border: 1px solid rgb(55, 55, 121); */
+  background-image: url("../public/gradient\ 2.png");
+  color: antiquewhite;
+  list-style-position: inside;
+  list-style-type: none;
+  border-radius: 5px;
+  padding: 0px;
+  width: 250px;
+}
+
+
+
+.list7 li {
+
+  background-color: #d8cdcd1b;
+  margin: 5px 15px;
+  font-size: medium;
+  padding-left: 8px;
+  color: #fdfdfd;
+
+}
+
+
+.list7 li:hover {
+  background-image: none;
+  cursor: pointer;
+  background-color: #ffffff3d;
+  list-style-type: disclosure-closed;
+  /* padding: 8px 4px; */
+  box-shadow: 1px 1px 3px 0px rgba(255, 255, 255, 0.333);
+}
+
+.list8 {
+  /* border: 1px solid rgb(55, 55, 121); */
+  /* border: 1px solid; */
+  list-style-position: inside;
+  background-image: url("../public/pattern1.jpg");
+  /* background-color: white; */
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  list-style-type: none;
+  border-radius: 5px;
+  padding: 0px;
+  width: 230px;
+  overflow: hidden;
+}
+
+.list8 li {
+  background-color: rgba(245, 245, 245, 0.281);
+  backdrop-filter: blur(3px);
+  margin: 5px;
+  cursor: pointer;
+  font-size: small;
+  line-height: 1.1;
+  padding: 5px 10px;
+}
+
+.list8 li:hover {
+  backdrop-filter: none;
+  background-color: rgba(245, 245, 245, 0.135);
+  color: #ebe4e4;
+}
+
+.list8 .list-header * {
+  margin: 0px;
+}
+
+.list8 .list-header {
+  background-color: rgba(245, 245, 245, 0.213);
+  backdrop-filter: blur(1px);
+  padding: 5px 20px;
+  color: rgba(248, 248, 248, 0.52);
+
+}
+
+ul[class^="list"] li {
+  line-height: 1.1;
+  padding: 5px;
+  font-size: smaller;
+}
+
+.navigator button {
+  width: 60px;
+  height: 40px;
+  font-size: x-large;
+  padding: 0px;
+}

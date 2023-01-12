@@ -1,0 +1,25 @@
+.heading {
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-bottom: 1px solid rgba(167, 167, 167, 0.361);
+}
+
+.heading-mark::before {
+    content: "➤";
+    color: greenyellow;
+    padding-right: 10px;
+}
+
+.mb-6 {
+    padding-bottom: 30px;
+}
+
+.form-block {
+    padding: 5px 15px;
+    background-color: #1b1b30de;
+    border: 1px solid rgba(245, 245, 245, 0.317);
+    margin: 15px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    color: #f5f5f5cf;
+}
