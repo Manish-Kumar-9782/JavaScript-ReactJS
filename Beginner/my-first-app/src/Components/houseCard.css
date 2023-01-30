@@ -1,0 +1,17 @@
+.houseCard {
+    width: 350px;
+    height: 500px;
+    border: 1px solid black;
+}
+
+.card-image img {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+}
+
+.card-image {
+    width: 100%;
+    height: 40%;
+
+}
