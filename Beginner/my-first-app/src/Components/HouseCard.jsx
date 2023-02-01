@@ -1,21 +1,17 @@
 import "./houseCard.css";
 
 import HouseCardImage from "./houseCardImage";
+import HouseCardBhk from "./HouseCardBhk";
+import HouseCardDelar from "./HouseCardDelar";
+import HouseCardDescription from "./HouseCardDescription";
 
 const HouseCard = (props) => {
   return (
     <div className="houseCard">
       <HouseCardImage image={props.image} />
-      {/* 
-            1. Image
-            2. Description
-            3. BHK Details
-            4. Dealer
-         */}
-
-      <div className="card-description"></div>
-      <div className="card-bhk_details"></div>
-      <div className="card-dealer"></div>
+      <HouseCardDescription />
+      <HouseCardBhk />
+      <HouseCardDelar dealerImage={props.dealerImage} />
     </div>
   );
 };

@@ -1,17 +1,162 @@
 .houseCard {
     width: 350px;
     height: 500px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    border-radius: 8px;
+    box-shadow: 1px 1px 4px 5px lightgray;
+    overflow: hidden;
 }
 
 .card-image img {
     object-fit: cover;
     object-position: center;
     width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.card-description,
+.card-bhk_details {
+    border-bottom: 1px solid rgb(122, 122, 122);
+}
+
+.card-bhk_details table {
+    width: 100%;
 }
 
 .card-image {
     width: 100%;
-    height: 40%;
+    height: 35%;
+}
 
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.flex-row {
+    display: flex;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+ul.flex-col {
+    list-style-type: none;
+    padding: 10px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+
+.user-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.text-gray-100 {
+    color: #f7fafc
+}
+
+.text-gray-200 {
+    color: #edf2f7
+}
+
+.text-gray-300 {
+    color: #e2e8f0
+}
+
+.text-gray-400 {
+    color: #cbd5e0
+}
+
+.text-gray-500 {
+    color: #a0aec0
+}
+
+.text-gray-600 {
+    color: #718096
+}
+
+.text-gray-700 {
+    color: #4a5568;
+}
+
+.text-gray-800 {
+    color: #2d3748
+}
+
+.text-gray-900 {
+    color: #1a202c;
+}
+
+.p-0 {
+    padding: 0
+}
+
+.p-1 {
+    padding: .25rem
+}
+
+.p-2 {
+    padding: .5rem
+}
+
+.p-3 {
+    padding: .75rem
+}
+
+.p-4 {
+    padding: 1rem
+}
+
+.p-5 {
+    padding: 1.25rem
+}
+
+.p-6 {
+    padding: 1.5rem
+}
+
+.p-8 {
+    padding: 2rem
+}
+
+
+.text-xs {
+    font-size: .75rem
+}
+
+.text-sm {
+    font-size: .875rem
+}
+
+.text-base {
+    font-size: 1rem
+}
+
+.text-lg {
+    font-size: 1.125rem
+}
+
+.text-xl {
+    font-size: 1.25rem
+}
+
+.text-2xl {
+    font-size: 1.5rem
+}
+
+.text-3xl {
+    font-size: 1.7rem
+}
+
+.font-bold {
+    font-weight: 900;
 }
