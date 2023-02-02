@@ -1,0 +1,30 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game {
+    border: 1px solid black;
+
+}
+
+.game-board {
+    width: 192px;
+    border: 5px groove goldenrod;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.game-button {
+    --size: 64px;
+    width: var(--size);
+    height: var(--size);
+    background-color: lightgoldenrodyellow;
+    font-size: 1.6rem;
+}
+
+.game-button:hover {
+    background-color: lightcoral;
+
+}
