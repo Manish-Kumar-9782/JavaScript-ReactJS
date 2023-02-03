@@ -4,6 +4,7 @@ const GameButton = (prop) => {
   return (
     <div>
       <button
+        id={prop.id}
         type="button"
         className="game-button"
         onClick={(e) => prop.onClick(e)}
