@@ -21,7 +21,9 @@ const ListContainer = (props) => {
             the state of the listItems from the TodoApp Component. */}
             {props.todoItems.map(item => {
                 return <ListItem id={item.id} text={item.text}
-                    onDelete={deleteItem} />
+                    onDelete={deleteItem} listData={props.listData}
+                    setTodoItems={props.setTodoItems}
+                />
             })}
         </ul>
     )

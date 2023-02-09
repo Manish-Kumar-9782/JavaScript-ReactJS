@@ -5,10 +5,7 @@ import ListContainer from './ListContainer';
 
 const TodoApp = () => {
     const [listItems, setItems] = useState([]);
-    // initially our list Array is empty
-
-    const [input, setInput] = useState("");
-    // a state hook to control the state of the input 
+    // initially our list Array is empty   
 
     // Now we will have another state hook to control the
     // the index number of each item.
@@ -31,18 +28,18 @@ const TodoApp = () => {
         setItems(tempList);
         console.log(listItems);
         // console.log("index: " + index);
-        setInput("")
         setElementId(elementId + 1); // Increasing the element id.
 
     }
 
-
-
     return (
         <div>
-            <Input inputContent={input} onSave={addItem} />
+            <Input onSave={addItem} />
             {/* A container to store all the list item inside it.  */}
-            <ListContainer todoItems={listItems} setTodoItems={setItems} />
+            <ListContainer todoItems={listItems}
+                setTodoItems={setItems}
+                listData={listItems}
+            />
 
         </div>
     )

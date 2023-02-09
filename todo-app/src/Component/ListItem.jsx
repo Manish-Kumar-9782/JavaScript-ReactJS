@@ -1,6 +1,26 @@
 import React from "react";
+import { useState } from "react";
+import Edit from "./Edit";
 
 const ListItem = (props) => {
+  const [textInput, setTextInput] = useState(null);
+
+  function removeTextEdit() {
+    setTextInput(null);
+  }
+
+  function updateText() {
+    setTextInput(
+      <Edit
+        currentData={props.text}
+        data={props.listData}
+        id={props.id}
+        setData={props.setTodoItems}
+        removeEdit={removeTextEdit}
+      />
+    );
+  }
+
   return (
     <li>
       <input type="checkbox" />
@@ -14,7 +34,8 @@ const ListItem = (props) => {
       >
         {props.text}
       </p>
-      <button>edit</button>
+      {textInput}
+      <button onClick={updateText}>edit</button>
       <button onClick={() => props.onDelete(props.id)}>delete</button>
     </li>
   );

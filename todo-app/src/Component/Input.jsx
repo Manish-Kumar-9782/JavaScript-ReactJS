@@ -16,11 +16,15 @@ const Input = (props) => {
         onKeyUp={(e) => {
           if (e.key === "Enter") {
             props.onSave(input)
+            setInput("");
           }
         }}
 
       />
-      <button type="button" onClick={(e) => { props.onSave(input) }}>Add</button>
+      <button type="button" onClick={(e) => {
+        props.onSave(input);
+        setInput("");
+      }}>Add</button>
     </div>
   );
 };
