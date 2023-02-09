@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.gameBox {
+  width: 204px;
+  height: min-content;
+  border: 1px solid black;
+}
+
+.glyph-grid {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.glyph-button {
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  outline: 0px;
+  padding: 0px;
+  margin: 0px;
+  background-color: white;
+  display: block;
+}
+
+button:has(.glyph-button) {
+  border: 0px;
+
+}
