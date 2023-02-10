@@ -22,6 +22,12 @@ const GlyphGame = () => {
 export default GlyphGame;
 ```
 
+```js
+<div className="gameBox">
+  <GlyphsGrid />
+</div>
+```
+
 ## 2. GlyphGrid Component
 
 ## 3. GlyphButton Component

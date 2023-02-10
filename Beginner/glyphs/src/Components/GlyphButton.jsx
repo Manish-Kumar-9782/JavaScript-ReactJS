@@ -13,6 +13,7 @@ const GlyphButton = (props) => {
 
     const [imgIndex, setImg] = useState(props.glyphValue)
 
+
     function onClickHandler() {
 
         console.log("selected image: " + imgIndex);
@@ -24,6 +25,11 @@ const GlyphButton = (props) => {
         else {
             setImg(imgIndex + 1);
         }
+
+        // Now we will update our glyph matrix in which we have all glyphs record.
+        let newMatrix = new Array(...props.glyphMatrix);
+        newMatrix[props.id] = imgIndex;
+        props.setGlyphMatrix(newMatrix);
     }
 
     return (
