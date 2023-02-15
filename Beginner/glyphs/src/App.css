@@ -12,7 +12,7 @@ body {
 }
 
 .gameBox {
-  width: 204px;
+  width: 215px;
   height: min-content;
   border: 1px solid black;
 }
@@ -28,15 +28,30 @@ body {
 .glyph-button {
   width: 40px;
   height: 40px;
-  border: 1px solid black;
   outline: 0px;
   padding: 0px;
   margin: 0px;
   background-color: white;
   display: block;
+
+}
+
+button {
+  border: 1px solid lightgray;
+  background-color: white
 }
 
 button:has(.glyph-button) {
   border: 0px;
 
+}
+
+.null-img {
+  width: 39px;
+  height: 39px;
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  background-color: white;
 }
