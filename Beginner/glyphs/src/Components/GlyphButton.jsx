@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const images = process.env.PUBLIC_URL + "/Images/Remnant Glyphs";
 const imagesArray = [
@@ -13,7 +13,7 @@ const GlyphButton = (props) => {
   const [imgIndex, setImg] = useState(props.glyphValue);
   const ref_state = useRef();
   const btn_ref = useRef();
-
+  console.log(`rendering : `, props.id);
   function onClickHandler() {
     console.log("selected image: " + imgIndex);
 
@@ -28,12 +28,14 @@ const GlyphButton = (props) => {
     } else {
       setImg(imgIndex + 1);
     }
+  }
 
-    // Now we will update our glyph matrix in which we have all glyphs record.
+  // Now we will update our glyph matrix in which we have all glyphs record.
+  useEffect(() => {
     let newMatrix = new Array(...props.glyphMatrix);
     newMatrix[props.id] = imgIndex;
     props.setGlyphMatrix(newMatrix);
-  }
+  }, [imgIndex]);
 
   return (
     <button ref={btn_ref} type="button" onClick={onClickHandler}>
