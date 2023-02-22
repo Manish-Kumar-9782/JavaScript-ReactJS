@@ -1,6 +1,6 @@
 import React from "react";
 
-const Submit = () => {
+const Submit = (props) => {
   function handleSubmit(e) {
     e.preventDefault();
     console.log("Submit called");
@@ -11,7 +11,16 @@ const Submit = () => {
       className="fill bg-teal"
       type="submit"
       value="Submit"
-      onClick={(e) => handleSubmit(e)}
+      onClick={(e) => {
+        e.preventDefault();
+        let data = props.submitForm(e);
+
+        props.setRecord([
+          ...props.record,
+          [data.title, data.author, data.subject, data.pages, data.price],
+        ]);
+        data.form.reset();
+      }}
     />
   );
 };

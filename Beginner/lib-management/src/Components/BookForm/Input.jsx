@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 const Input = (props) => {
-  const [value, setValue] = useState("");
+  const input = useRef();
 
   return (
     <div className="input-group">
       <label htmlFor={props.title}>{props.label}</label> <br />
       <input
+        ref={input}
         id={props.title}
         type="text"
         name="props.title"
-        value={value}
-        onChange={(e) => {
-          setValue(e.target.value);
+        onKeyDownCapture={(e) => {
+          input.value = e.target.value;
         }}
       />
     </div>
