@@ -4,12 +4,10 @@ import React from 'react'
 
 const Edit = (props) => {
 
-    const onHandleEditClick = () => {
-
-    }
-
     return (
-        <button id={props.id} >
+        <button id={props.id} onClick={(e) => {
+            props.update(e.target.id)
+        }}>
             edit
         </button>
     )

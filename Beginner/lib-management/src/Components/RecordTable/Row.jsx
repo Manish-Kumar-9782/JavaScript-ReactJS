@@ -9,19 +9,20 @@ const Row = (props) => {
     <tr>
       {props.type === "heading"
         ? // for heading row
-          props.data.map((cell_data) => {
-            return <CellHeading data={cell_data} />;
+          props.data.map((cell_data, index) => {
+            return <CellHeading key={index} data={cell_data} />;
           })
         : // for normal data row
-          props.data.map((cell_data) => {
-            return <CellData data={cell_data} />;
+          props.data.map((cell_data, index) => {
+            return <CellData key={index} data={cell_data} />;
           })}
 
       <CellData
+        key={-1}
         data={
           props.type !== "heading"
             ? [
-                <Edit id={props.id} />,
+                <Edit id={props.id} update={props.update} />,
                 <Delete id={props.id} delete={props.delete} />,
               ]
             : null

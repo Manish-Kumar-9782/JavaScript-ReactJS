@@ -6,8 +6,9 @@ const RecordTable = (props) => {
   console.log("props record: ", props.data)
 
   for (let [key, value] of props.data) {
-    recordTable.push(<Row id={key} data={value} record={props.data} setRecord={props.setData}
+    recordTable.push(<Row key={key} id={key} data={value} record={props.data}
       delete={props.delete}
+      update={props.update}
     />)
   }
 
