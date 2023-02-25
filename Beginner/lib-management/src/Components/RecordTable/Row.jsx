@@ -1,6 +1,9 @@
 import React from "react";
 import CellData from "./CellData";
 import CellHeading from "./CellHeading";
+import Edit from "./Edit";
+import Delete from "./Delete";
+
 const Row = (props) => {
   return (
     <tr>
@@ -18,15 +21,8 @@ const Row = (props) => {
         data={
           props.type !== "heading"
             ? [
-                <button
-                  style={{
-                    marginRight: "10px",
-                  }}
-                  id=""
-                >
-                  edit
-                </button>,
-                <button id="">delete</button>,
+                <Edit id={props.id} />,
+                <Delete id={props.id} delete={props.delete} />,
               ]
             : null
         }
