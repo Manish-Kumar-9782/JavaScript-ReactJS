@@ -1,12 +1,12 @@
 import './App.css';
 import UseEffect from './Components/UseEffect';
 import ContextApp from './Components/ContextApp';
+import Router from './Components/Router/Router';
 
 function App() {
   return (
     <div className="App">
-      {/* <UseEffect /> */}
-      <ContextApp />
+      <Router />
     </div>
   );
 }
