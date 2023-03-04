@@ -38,6 +38,12 @@ const Navigation = () => {
             <i class="bi bi-pie-chart-fill"></i> Issue
           </Link>
         </li>
+
+        <li className="list-group-item border">
+          <Link to="/registrations">
+            <i class="bi bi-pie-chart-fill"></i> Registrations
+          </Link>
+        </li>
       </ul>
     </div>
   );
