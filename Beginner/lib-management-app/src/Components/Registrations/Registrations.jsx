@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, Routes, Route } from "react-router-dom";
 import RegisterStudents from "./RegisterStudents";
+import RegisterBook from "./RegisterBook";
+import RegisterTeacher from "./RegisterTeacher";
 const Registrations = () => {
   return (
     <div>
@@ -39,9 +41,9 @@ const Registrations = () => {
 
         <div className="col-8">
           <Routes path="/registrations">
-            <Route path="/book" element={<h1>register books</h1>} />
+            <Route path="/book" element={<RegisterBook />} />
             <Route path="/student" element={<RegisterStudents />} />
-            <Route path="/teacher" element={<h1>register teacher</h1>} />
+            <Route path="/teacher" element={<RegisterTeacher />} />
           </Routes>
         </div>
       </div>

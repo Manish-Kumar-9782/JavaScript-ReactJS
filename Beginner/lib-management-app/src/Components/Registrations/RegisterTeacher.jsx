@@ -1,38 +1,33 @@
 import React from "react";
 import Form from "../Utility/Form";
-import {
-  setItem,
-  getItem,
-  getFormData,
-  makeFormEntry,
-} from "../Utility/Utility";
+import { makeFormEntry } from "../Utility/Utility";
 
 const input_data = [
   { title: "name", label: "Name" },
   { title: "email", label: "Email" },
   { title: "contact", label: "Contact" },
   { title: "address", label: "Address" },
-  { title: "class", label: "Class" },
+  { title: "stream", label: "Stream" },
 ];
 
-const RegisterStudents = () => {
+const RegisterTeacher = () => {
   return (
     <div
       style={{
         borderLeft: "4px solid black",
       }}
     >
-      <h3 className="text-start px-3">Student Registration</h3>
+      <h3 className="text-start px-3">Teachers Registration</h3>
       <Form
         width="50%"
         inputs={input_data}
-        database="Students"
-        formName="Register Students"
+        database="Teachers"
+        formName="Register Teachers"
         callback={makeFormEntry}
-        input_names={["name", "email", "contact", "address", "class"]}
+        input_names={["name", "email", "contact", "address", "stream"]}
       />
     </div>
   );
 };
 
-export default RegisterStudents;
+export default RegisterTeacher;

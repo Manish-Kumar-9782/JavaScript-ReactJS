@@ -21,6 +21,7 @@ const Form = (props) => {
         ref={form}
         data-database={props.database}
         data-form-name={props.formName}
+        data-input-names={props.input_names}
       >
         {props.inputs.map((input, index) => {
           return <InputGroup title={input.title} label={input.label} />;
