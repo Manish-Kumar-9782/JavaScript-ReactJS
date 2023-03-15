@@ -1,6 +1,7 @@
 import React from "react";
 import Table from "../Utility/Table/Table";
 import Card from "../Utility/Card";
+import { getItem, getItemList } from "../Utility/Utility";
 const Student = () => {
   return (
     <div>
@@ -30,8 +31,8 @@ const Student = () => {
         <div className="col-10">
           <Table
             title="Registered Students"
-            fields={["id", "name", "email", "address", "contact", "class"]}
-            data={[]}
+            fields={["id", "name", "email", "contact", "address", "class"]}
+            data={getItemList("Students")}
           />
         </div>
       </div>

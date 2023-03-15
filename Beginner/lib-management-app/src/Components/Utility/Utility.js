@@ -61,3 +61,42 @@ export function makeFormEntry(e, form) {
 
     form.reset();
 }
+
+// getItemList to generate of the list of data.
+
+export function getItemList(database) {
+
+    return getItem(database).map((item, index) => {
+        return [index, ...Object.values(item)]
+    })
+}
+
+class Student {
+
+    static Students;
+
+    constructor({ id, name, _class, email, contact, address, current_issued_book, registration_date, updated_on, is_finned, finned_amount, is_returned, returned_date, Image }) {
+
+        this.id = id;
+        this.name = name;
+        this.class = _class;
+        this.email = email;
+        this.contact = contact;
+        this.address = address;
+        this.current_issued_book = current_issued_book;
+        this.registration_date = registration_date;
+        this.updated_on = updated_on;
+        this.is_finned = is_finned;
+        this.finned_amount = finned_amount;
+        this.is_returned = is_returned;
+        this.returned_date = returned_date;
+        this.Image = Image;
+
+    }
+
+    update(key, value) {
+        this.key = value;
+    }
+
+
+}   
