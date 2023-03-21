@@ -1,6 +1,6 @@
 import React from "react";
 import Form from "../Utility/Form";
-import { makeFormEntry } from "../Utility/Utility";
+import { makeFormEntry, Teacher } from "../Utility/Utility";
 
 const input_data = [
   { title: "name", label: "Name" },
@@ -11,6 +11,7 @@ const input_data = [
 ];
 
 const RegisterTeacher = () => {
+  Teacher.load();
   return (
     <div
       style={{
@@ -21,7 +22,7 @@ const RegisterTeacher = () => {
       <Form
         width="50%"
         inputs={input_data}
-        database="Teachers"
+        database={Teacher.DatabaseKey}
         formName="Register Teachers"
         callback={makeFormEntry}
         input_names={["name", "email", "contact", "address", "stream"]}

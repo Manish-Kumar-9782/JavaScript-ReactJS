@@ -1,8 +1,10 @@
 import React from "react";
 import Table from "../Utility/Table/Table";
 import Card from "../Utility/Card";
-import { getItem, getItemList } from "../Utility/Utility";
+import { Student as St } from "../Utility/Utility";
 const Student = () => {
+  St.load();
+
   return (
     <div>
       <header>
@@ -31,8 +33,8 @@ const Student = () => {
         <div className="col-10">
           <Table
             title="Registered Students"
-            fields={["id", "name", "email", "contact", "address", "class"]}
-            data={getItemList("Students")}
+            fields={St.Fields}
+            data={St.getRowRecord().values}
           />
         </div>
       </div>

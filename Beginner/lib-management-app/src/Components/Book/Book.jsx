@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "../Utility/Card";
 import Table from "../Utility/Table/Table";
-import { getItemList } from "../Utility/Utility";
+import { Student } from "../Utility/Utility";
 const Book = () => {
   return (
     <div>
@@ -31,7 +31,7 @@ const Book = () => {
         <Table
           title="Admin Section"
           fields={["id", "title", "author", "subject", "pages", "price"]}
-          data={getItemList("Books")}
+          data={null}
         />
       </div>
     </div>

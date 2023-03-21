@@ -1,4 +1,13 @@
-export class LocalDatabase {
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test html</title>
+    <script>
+	class LocalDatabase {
     /**
      * This class will be used to perform operations related to the localStorage, it will 
      * Take care of the required functionality working with the localStorage database.
@@ -19,7 +28,7 @@ export class LocalDatabase {
             // if id is already in the with the already stored data, then we need 
             // use that existing id.
             this.id = id;
-            LocalDatabase.setId(id);
+            this.setId(id);
         }
         else {
             // if id is not in the database, then we need to create one.
@@ -99,28 +108,16 @@ export class LocalDatabase {
         })
     }
 
-    static getFields() {
-        return this.Fields;
+    toArray() {
+        return LocalDatabase.Fields.map((key) => this[key])
     }
 
-    static getRowRecord() {
-        return this.RowRecord;
-    }
-
-    static getDatabaseKey() {
-        return this.DatabaseKey;
-    }
-
-    toArray(cls) {
-        return cls.getFields().map((key) => this[key])
-    }
-
-    save(cls) {
+    save() {
         // to save the instance record , first we need to get the data in array format.
         // then we need to push that record into the RowRecord
-        cls.getRowRecord().values.push(this.toArray(cls))
+        LocalDatabase.RowRecord.values.push(this.toArray())
         // Now after pushing the record we need to save that into the localStorage.
-        cls.setRecord(cls.getDatabaseKey(), cls.RowRecord)
+        LocalDatabase.setRecord(LocalDatabase.DatabaseKey, LocalDatabase.RowRecord)
     }
 
     static saveAll() {
@@ -134,75 +131,18 @@ export class LocalDatabase {
 
 }
 
-export class Form {
 
-    constructor(form, name, database, inputAttributes) {
-        this.form = form;
-        this.name = name;
-        this.database = database;
-        this.inputAttributes = inputAttributes;
-    }
+class Student extends LocalDatabase {
 
-    getData() {
-        // this method will retrieve the data from form.
-
-    }
-}
-
-export function getFormData(form, inputs) {
-    let data = {};
-    inputs.forEach((item) => {
-        data[item] = form[item].value;
-    })
-    return data;
-}
-
-export function makeFormEntry(e, form) {
-
-    /**
-     * form: it is the form element which contains our all
-     * input elements.
-     * 
-     * input_names: it contains the all inputs name which are 
-     * contained by our form.
-     */
-
-    // now store the form, into the form variable from form.current which is previous state of form object.
-    form = form.current;
-
-    // // Now after updating our database we need to set the database.
-    // setItem(form.dataset.database, database);
-    let data = getFormData(form, form.dataset.inputNames.split(","))
-    let st = new Student({
-        name: data.name, email: data.email, contact: data.contact,
-        address: data.address, _class: data.class
-    })
-
-    st.save();
-    // after submitting the form data we need to reset the form
-
-    form.reset();
-}
-
-// getItemList to generate of the list of data.
-
-
-
-export class Student extends LocalDatabase {
-
-
-    // Student Database name in localStorage
-
-    // fields which are loaded and stored inside the localStorage.
-    static {
-        super.Fields = super.Fields.concat(["name", "class", "email", "contact",
+		
+		  static {
+       super.Fields =  super.Fields.concat(["name", "class", "email", "contact",
             "address", "current_issued_book", "is_finned", "finned_amount", "is_returned", "returned_date", "Image"
         ])
         super.DatabaseKey = 'Students';
     }
-
-    // a constructor to create a new student object.
-    constructor({ id, name, _class, email, contact, address, current_issued_book, regDate, updateDate, is_finned, finned_amount, is_returned, returned_date, Image }) {
+		
+       constructor({ id, name, _class, email, contact, address, current_issued_book, regDate, updateDate, is_finned, finned_amount, is_returned, returned_date, Image }) {
 
         super({ id, regDate, updateDate })
         this.name = name;
@@ -216,46 +156,16 @@ export class Student extends LocalDatabase {
         this.is_returned = is_returned;
         this.returned_date = returned_date;
         this.Image = Image;
+
+   
     }
 
-    save() {
-        super.save(Student)
-    }
-
-}
-
-
-export class Teacher extends LocalDatabase {
-
-
-    // Student Database name in localStorage
-
-    // fields which are loaded and stored inside the localStorage.
-    static {
-        super.Fields = super.Fields.concat(["name", "stream", "email", "contact",
-            "address", "current_issued_book", "is_finned", "finned_amount", "is_returned", "returned_date", "Image"
-        ])
-        super.DatabaseKey = 'Teachers';
-    }
-
-    // a constructor to create a new student object.
-    constructor({ id, name, stream, email, contact, address, current_issued_book, regDate, updateDate, is_finned, finned_amount, is_returned, returned_date, Image }) {
-
-        super({ id, regDate, updateDate })
-        this.name = name;
-        this.stream = stream;
-        this.email = email;
-        this.contact = contact;
-        this.address = address;
-        this.current_issued_book = current_issued_book;
-        this.is_finned = is_finned;
-        this.finned_amount = finned_amount;
-        this.is_returned = is_returned;
-        this.returned_date = returned_date;
-        this.Image = Image;
-    }
-
-    save() {
-        super.save(Teacher);
-    }
 }   
+</script>
+</head>
+
+<body>
+
+</body>
+
+</html>

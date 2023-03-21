@@ -1,11 +1,6 @@
 import React from "react";
 import Form from "../Utility/Form";
-import {
-  setItem,
-  getItem,
-  getFormData,
-  makeFormEntry,
-} from "../Utility/Utility";
+import { Student, makeFormEntry } from "../Utility/Utility";
 
 const input_data = [
   { title: "name", label: "Name" },
@@ -16,6 +11,9 @@ const input_data = [
 ];
 
 const RegisterStudents = () => {
+  Student.load();
+  console.log(Student.RowRecord);
+  console.log(Student.Records);
   return (
     <div
       style={{
