@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import InputGroup from "./Input/InputGroup";
-
+import { FormModel } from "./Utility";
 /**
  * inputs: [
  * {title: "title", label: "Title"}]
@@ -8,6 +8,14 @@ import InputGroup from "./Input/InputGroup";
 
 const Form = (props) => {
   const form = useRef();
+  const formModel = new FormModel(
+    form,
+    props.formName,
+    props.database,
+    props.inputs,
+    props.input_names,
+    props.model
+  );
 
   return (
     <div
@@ -16,18 +24,12 @@ const Form = (props) => {
         width: props.width,
       }}
     >
-      <form
-        action="#"
-        ref={form}
-        data-database={props.database}
-        data-form-name={props.formName}
-        data-input-names={props.input_names}
-      >
+      <form action="#" ref={form}>
         {props.inputs.map((input, index) => {
           return <InputGroup title={input.title} label={input.label} />;
         })}
       </form>
-      <button onClick={(e) => props.callback(e, form)}>Submit</button>
+      <button onClick={(e) => formModel.saveEntry()}>Submit</button>
     </div>
   );
 };

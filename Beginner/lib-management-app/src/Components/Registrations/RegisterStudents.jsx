@@ -1,13 +1,13 @@
 import React from "react";
 import Form from "../Utility/Form";
-import { Student, makeFormEntry } from "../Utility/Utility";
+import { Student } from "../Utility/Utility";
 
 const input_data = [
   { title: "name", label: "Name" },
   { title: "email", label: "Email" },
   { title: "contact", label: "Contact" },
   { title: "address", label: "Address" },
-  { title: "class", label: "Class" },
+  { title: "std", label: "Class" },
 ];
 
 const RegisterStudents = () => {
@@ -26,8 +26,8 @@ const RegisterStudents = () => {
         inputs={input_data}
         database="Students"
         formName="Register Students"
-        callback={makeFormEntry}
-        input_names={["name", "email", "contact", "address", "class"]}
+        model={Student}
+        input_names={["name", "email", "contact", "address", "std"]}
       />
     </div>
   );

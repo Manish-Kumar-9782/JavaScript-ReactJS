@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Card from "../Utility/Card";
 import Table from "../Utility/Table/Table";
-import { Student } from "../Utility/Utility";
+import { Book as bk } from "../Utility/Utility";
 const Book = () => {
+  useEffect(function () {
+    bk.load();
+  });
+  bk.TableFields = ["id", "title", "author", "subject", "pages", "price"];
   return (
     <div>
       <header>
@@ -30,8 +34,8 @@ const Book = () => {
       <div className="container">
         <Table
           title="Admin Section"
-          fields={["id", "title", "author", "subject", "pages", "price"]}
-          data={null}
+          fields={bk.TableFields}
+          data={bk.getRecordByFields()}
         />
       </div>
     </div>

@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect, useReducer } from "react";
 import Card from "../Utility/Card";
 import Table from "../Utility/Table/Table";
 import { Teacher as Guru } from "../Utility/Utility";
 
 const Teacher = () => {
-  Guru.load();
+  useEffect(function () {
+    Guru.load();
+  }, []);
+  Guru.TableFields = ["id", "name", "email", "contact", "address", "stream"];
   return (
     <div>
       <header>
@@ -33,8 +36,8 @@ const Teacher = () => {
         <div className="col-10">
           <Table
             title="Registered Teachers"
-            fields={["id", "name", "email", "contact", "address", "stream"]}
-            data={Guru.getRowRecord().values}
+            fields={Guru.TableFields}
+            data={Guru.getRecordByFields()}
           />
         </div>
       </div>

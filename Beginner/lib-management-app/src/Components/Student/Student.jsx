@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Table from "../Utility/Table/Table";
 import Card from "../Utility/Card";
 import { Student as St } from "../Utility/Utility";
 const Student = () => {
-  St.load();
+  useEffect(function () {
+    St.load();
+  }, []);
+  St.TableFields = ["id", "address", "std", "email", "contact", "name"];
 
   return (
     <div>
@@ -33,8 +36,8 @@ const Student = () => {
         <div className="col-10">
           <Table
             title="Registered Students"
-            fields={St.Fields}
-            data={St.getRowRecord().values}
+            fields={St.TableFields}
+            data={St.getRecordByFields()}
           />
         </div>
       </div>
