@@ -4,6 +4,16 @@ import Button from "react-bootstrap/Button";
 import { useState } from "react";
 
 const IssuePopup = (props) => {
+  const [EntryRecord, setEntryRecord] = useState(props);
+
+  const handleSelection = (e) => {
+    setEntryRecord({
+      ...EntryRecord,
+      userId: e.target.value,
+      userModal: e.target.selectedOptions[0].dataset.userModal,
+    });
+  };
+
   return (
     <div className="issue-modal" tabIndex="-1">
       <Modal show={props.show}>
@@ -11,7 +21,12 @@ const IssuePopup = (props) => {
           <Modal.Title>Issue Book</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <select name="issue" id="issue" placeholder="Select User">
+          <select
+            name="issue"
+            id="issue"
+            placeholder="Select User"
+            onChange={(e) => handleSelection(e)}
+          >
             <option value="none" disabled selected>
               Select User
             </option>
@@ -25,7 +40,10 @@ const IssuePopup = (props) => {
           >
             Close
           </Button>
-          <Button variant="primary" onClick={() => props.handleSave()}>
+          <Button
+            variant="primary"
+            onClick={() => props.handleSave(EntryRecord)}
+          >
             Save Changes
           </Button>
         </Modal.Footer>

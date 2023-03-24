@@ -11,26 +11,9 @@ import { Student, Teacher } from "../Utility/Utility";
 
 const Book = () => {
   const [showModal, setModalVisibility] = useState(false);
-
-  // if (Teacher.Records.length === 0) {
-  //   Teacher.load();
-  // }
-
-  // if (bk.Records.length === 0) {
-  //   bk.load();
-  // }
-
-  // if (Student.Records.length === 0) {
-  //   Student.load();
-  // }
-
-  useEffect(() => {
-    console.log("modal visibility changed: ", showModal);
-  }, [showModal]);
+  const [issueBook, setIssueBook] = useState({});
 
   useEffect(function () {
-    console.log("loading data from localStorage.");
-
     bk.load();
     Teacher.load();
     Student.load();
@@ -38,7 +21,9 @@ const Book = () => {
 
   bk.showIssueModal = (visibility) => setModalVisibility(visibility);
 
-  const saveEntry = () => {};
+  const saveEntry = (Record) => {
+    console.log("saving record: ", Record);
+  };
 
   bk.TableFields = [
     "id",
@@ -77,14 +62,16 @@ const Book = () => {
         <IssuePopup
           show={showModal}
           handleVisibility={bk.showIssueModal}
-          handleSave={null}
+          handleSave={saveEntry}
           options={[
             <OptGroup
               label="Students"
+              userModal="Student"
               optionList={Teacher.getOptionList("id", "name")}
             />,
             <OptGroup
               label="Teachers"
+              userModal="Teacher"
               optionList={Student.getOptionList("id", "name")}
             />,
           ]}
