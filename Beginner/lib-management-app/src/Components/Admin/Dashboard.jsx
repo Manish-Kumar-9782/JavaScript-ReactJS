@@ -2,7 +2,15 @@ import React from "react";
 import Table from "../Utility/Table/Table";
 import { admins } from "./data";
 import Card from "../Utility/Card";
+import { useEffect } from "react";
+import { Student, Teacher, Book } from "../Utility/Utility";
 const Dashboard = () => {
+  useEffect(() => {
+    Student.load();
+    Teacher.load();
+    Book.load();
+  }, []);
+
   return (
     <div>
       <header>

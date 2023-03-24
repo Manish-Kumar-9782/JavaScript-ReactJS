@@ -5,6 +5,7 @@ import Dashboard from "../Admin/Dashboard";
 import Student from "../Student/Student";
 import Teacher from "../Teacher/Teacher";
 import Book from "../Book/Book";
+import Issue from "../Issue/Issue";
 import Registrations from "../Registrations/Registrations";
 const Routing = () => {
   return (
@@ -17,6 +18,7 @@ const Routing = () => {
         <Route path="/teacher" element={<Teacher />} />
 
         <Route path="/books" element={<Book />} />
+        <Route path="/issue" element={<Issue />} />
 
         <Route path="/registrations/*" element={<Registrations />} />
       </Routes>

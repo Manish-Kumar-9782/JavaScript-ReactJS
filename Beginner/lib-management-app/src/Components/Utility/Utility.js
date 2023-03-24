@@ -1,3 +1,6 @@
+import Issue from "./Buttons/Issue";
+import IssuePopup from "./Popups/IssuePopup";
+
 export class LocalDatabase {
     /**
      * This class will be used to perform operations related to the localStorage, it will 
@@ -14,7 +17,8 @@ export class LocalDatabase {
     static UniqueId = 1;
     static Fields = ["id", "regDate", "updateDate"]; // it must contain the all fields which are going to be stored in the database.
     static TableFields = [] // a list of fields which will be displayed on the table.
-
+    static showIssueModal = null;
+    // this will hold the bsModal which to get the book issue details.
     constructor({ id, regDate, updateDate }) {
         if (id) {
             // if id is already in the with the already stored data, then we need 
@@ -142,10 +146,16 @@ export class LocalDatabase {
     static saveAll() {
         // a method to save the all instance to the database with current data.
         let data = {
-            "fields": this.fields,
+            "fields": this.Fields,
             'values': this.Records.map((record) => record.toArray())
         }
         this.setRecord(this.database, data)
+    }
+
+    static getOptionList(idKey, valueKey) {
+        return this.Records.map((instance) => {
+            return { key: instance[idKey], value: instance[valueKey] }
+        })
     }
 
 }
@@ -208,8 +218,12 @@ export class Student extends LocalDatabase {
         this.is_returned = is_returned;
         this.returned_date = returned_date;
         this.Image = Image;
-    }
+        this.issue = null;
 
+    }
+    getOptionList() {
+
+    }
 }
 
 
@@ -273,5 +287,13 @@ export class Book extends LocalDatabase {
         this.availability = availability;
         this.stoke = stoke;
         this.Image = Image;
+        this.issue = <Issue onClick={() => { this.issueBook() }} />;
     }
+
+    issueBook() {
+        console.log("issuing this book", this)
+        this.constructor.showIssueModal(true);
+        console.log(this.constructor.showIssueModal)
+    }
+
 }   
