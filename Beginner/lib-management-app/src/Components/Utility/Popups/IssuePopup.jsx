@@ -1,10 +1,23 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
+import Select, { OptGroup, Option } from "../Select";
+import { Const } from "../Utility";
+const IssuePopup = ({
+  show,
+  handleVisibility,
+  handleSave,
+  userOptions,
+  bookOptions,
+  disableModal,
+  disableModalSelected,
+}) => {
+  const [EntryRecord, setEntryRecord] = useState({});
 
-const IssuePopup = (props) => {
-  const [EntryRecord, setEntryRecord] = useState(props);
+  useEffect(() => {
+    console.log("Entry Record: ", EntryRecord);
+  }, [EntryRecord]);
 
   const handleSelection = (e) => {
     setEntryRecord({
@@ -14,35 +27,49 @@ const IssuePopup = (props) => {
     });
   };
 
+  const handleSelectBook = (e) => {
+    setEntryRecord({
+      ...EntryRecord,
+      bookId: e.target.value,
+    });
+  };
+
   return (
     <div className="issue-modal" tabIndex="-1">
-      <Modal show={props.show}>
+      <Modal show={show}>
         <Modal.Header>
           <Modal.Title>Issue Book</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <select
-            name="issue"
-            id="issue"
-            placeholder="Select User"
-            onChange={(e) => handleSelection(e)}
-          >
-            <option value="none" disabled selected>
-              Select User
-            </option>
-            {props.options}
-          </select>
+          <div className="d-flex">
+            <Select
+              name="issue-user"
+              id="issue-user"
+              placeholder="Select User"
+              onSelect={handleSelection}
+              disabled={disableModal === Const.USER_MODAL ? true : false}
+            >
+              {userOptions}
+            </Select>
+
+            <Select
+              name="issue-book"
+              id="issue-book"
+              placeholder="Select Book"
+              onSelect={handleSelectBook}
+              disabled={disableModal === Const.BOOK_MODAL ? true : false}
+            >
+              {bookOptions}
+            </Select>
+          </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button
-            variant="secondary"
-            onClick={() => props.handleVisibility(false)}
-          >
+          <Button variant="secondary" onClick={() => handleVisibility(false)}>
             Close
           </Button>
           <Button
             variant="primary"
-            onClick={() => props.handleSave(EntryRecord)}
+            onClick={() => handleSave(EntryRecord, setEntryRecord)}
           >
             Save Changes
           </Button>

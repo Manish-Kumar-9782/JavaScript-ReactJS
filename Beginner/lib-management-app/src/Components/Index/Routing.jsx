@@ -7,6 +7,10 @@ import Teacher from "../Teacher/Teacher";
 import Book from "../Book/Book";
 import Issue from "../Issue/Issue";
 import Registrations from "../Registrations/Registrations";
+import { createContext } from "react";
+// npm install react-bootstrap bootstrap
+
+export const IssueContext = createContext(null);
 const Routing = () => {
   return (
     <div className="col-10 border">

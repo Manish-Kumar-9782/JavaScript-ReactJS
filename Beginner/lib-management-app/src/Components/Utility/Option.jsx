@@ -1,9 +1,13 @@
 import React from "react";
 
-const Option = (props) => {
+const Option = ({ keyId, value, userModal, select }) => {
   return (
-    <option data-user-modal={props.userModal} value={props.keyId}>
-      {props.value}
+    <option
+      data-user-modal={userModal}
+      value={keyId}
+      selected={select ? true : false}
+    >
+      {value}
     </option>
   );
 };

@@ -1,5 +1,44 @@
+import Button from "react-bootstrap/esm/Button";
 import Issue from "./Buttons/Issue";
-import IssuePopup from "./Popups/IssuePopup";
+import { faker } from "@faker-js/faker"
+
+
+
+
+export class Const {
+    static USER_MODAL = Symbol.for("userModal")
+    static BOOK_MODAL = Symbol.for("bookModal")
+    static STUDENT = Symbol.for("student")
+    static TEACHER = Symbol.for("teacher")
+}
+
+export class Sorting {
+    static Faker = faker;
+    static byDate(instance1, instance2, field) {
+        let date1 = new Date(instance1[field]);
+        let date2 = new Date(instance2[field]);
+
+        if (date1.getMonth() > date2.getMonth()) {
+            return 1;
+        }
+        else if (date1.getMonth() < date2.getMonth()) {
+            return -1;
+        }
+        else {
+            return date1.getDate() - date2.getDate();
+        }
+    }
+
+    static byId(a, b) {
+        if (a.id > b.id) return 1;
+        else if (a.id < b.id) return -1;
+        else return 0;
+    }
+
+    static byNumber(a, b, field) {
+        return a[field] - b[field];
+    }
+}
 
 export class LocalDatabase {
     /**
@@ -38,7 +77,7 @@ export class LocalDatabase {
         }
         else {
             let date = new Date()
-            this.regDate = date.toLocaleDateString();
+            this.regDate = date.toISOString;
         }
 
         if (updateDate) {
@@ -118,13 +157,22 @@ export class LocalDatabase {
     }
 
     static getRowRecord() {
+        if (!this.RowRecord) {
+            this.load();
+        }
         return this.RowRecord;
     }
 
     static getRecordByFields() {
         // this method will return only those fields which are currently listed into the TableFields 
         // static property.
-        return this.Records.map(instance => instance.getValueByFields())
+        if (!this.Records) {
+            this.load();
+        }
+        let result = this.Records.map(instance => instance.getValueByFields())
+        // return this.Records.map(instance => instance.getValueByFields())
+        console.log(this.name, ": ", this.Records, result)
+        return result;
     }
 
     static getDatabaseKey() {
@@ -143,19 +191,50 @@ export class LocalDatabase {
         this.constructor.setRecord(this.constructor.getDatabaseKey(), this.constructor.RowRecord)
     }
 
+    // a method to get the instance by using its id value.
+    static get(id) {
+        for (let instance of this.Records) {
+            if (instance.id == id) {
+                return instance;
+            }
+        }
+    }
+
     static saveAll() {
         // a method to save the all instance to the database with current data.
         let data = {
             "fields": this.Fields,
             'values': this.Records.map((record) => record.toArray())
         }
-        this.setRecord(this.database, data)
+        this.setRecord(this.DatabaseKey, data)
     }
 
     static getOptionList(idKey, valueKey) {
         return this.Records.map((instance) => {
             return { key: instance[idKey], value: instance[valueKey] }
         })
+    }
+
+    static getRecentRecord(fieldName, type) {
+        // this will get the recent record using the given field name.
+        // generally it should be date field.
+
+        switch (type) {
+            case 'date':
+                return this.Records.sort((a, b) => Sorting.byDate(a, b, fieldName)).reverse()[0]
+            default:
+                return this.Records.sort((a, b) => Sorting.byId(a, b)).reverse()[0]
+        }
+    }
+
+    static showRecords() {
+        console.table(this.Records)
+    }
+
+    static getTop(n, field) {
+        if (!this.Records) this.load();
+        this.Records.sort((a, b) => Sorting.byNumber(a, b, field)).reverse()
+        return this.Records.slice(0, n);
     }
 
 }
@@ -198,13 +277,13 @@ export class Student extends LocalDatabase {
     // fields which are loaded and stored inside the localStorage.
     static {
         super.Fields = super.Fields.concat(["name", "std", "email", "contact",
-            "address", "current_issued_book", "is_finned", "finned_amount", "is_returned", "returned_date", "Image"
+            "address", "current_issued_book", "is_finned", "finned_amount", "is_returned", "returned_date", "Image", "totalBookIssued"
         ])
         super.DatabaseKey = 'Students';
     }
-
+    static setCurrentStudent = null;
     // a constructor to create a new student object.
-    constructor({ id, name, std, email, contact, address, current_issued_book, regDate, updateDate, is_finned, finned_amount, is_returned, returned_date, Image }) {
+    constructor({ id, name, std, email, contact, address, current_issued_book, regDate, updateDate, is_finned, finned_amount, is_returned, returned_date, Image, totalBookIssued }) {
 
         super({ id, regDate, updateDate })
         this.name = name;
@@ -218,12 +297,15 @@ export class Student extends LocalDatabase {
         this.is_returned = is_returned;
         this.returned_date = returned_date;
         this.Image = Image;
-        this.issue = null;
-
+        this.issue_book = <Issue onClick={() => { this.issueBook() }} />;
+        this.totalBookIssued = totalBookIssued;
     }
-    getOptionList() {
 
+    issueBook() {
+        this.constructor.showIssueModal(true);
+        this.constructor.setCurrentStudent(this);
     }
+
 }
 
 
@@ -235,13 +317,16 @@ export class Teacher extends LocalDatabase {
     // fields which are loaded and stored inside the localStorage.
     static {
         super.Fields = super.Fields.concat(["name", "stream", "email", "contact",
-            "address", "current_issued_book", "is_finned", "finned_amount", "is_returned", "returned_date", "Image"
+            "address", "current_issued_book", "is_finned", "finned_amount", "is_returned", "returned_date", "Image", "totalBookIssued"
         ])
         super.DatabaseKey = 'Teachers';
     }
 
+    static showIssueModal = null;
+    static setCurrentIssueBook = null;
+
     // a constructor to create a new student object.
-    constructor({ id, name, stream, email, contact, address, current_issued_book, regDate, updateDate, is_finned, finned_amount, is_returned, returned_date, Image }) {
+    constructor({ id, name, stream, email, contact, address, current_issued_book, regDate, updateDate, is_finned, finned_amount, is_returned, returned_date, Image, totalBookIssued }) {
 
         super({ id, regDate, updateDate })
         this.name = name;
@@ -255,6 +340,14 @@ export class Teacher extends LocalDatabase {
         this.is_returned = is_returned;
         this.returned_date = returned_date;
         this.Image = Image;
+        this.issue_book = <Issue onClick={() => { this.issueBook() }} />;
+        this.totalBookIssued = totalBookIssued;
+    }
+
+    issueBook() {
+        console.log("issuing this book", this)
+        this.constructor.showIssueModal(true);
+        this.constructor.setCurrentIssueBook(this)
     }
 }
 
@@ -264,16 +357,15 @@ export class Book extends LocalDatabase {
 
 
     // Student Database name in localStorage
-
+    static setCurrentIssueBook = null;
     // fields which are loaded and stored inside the localStorage.
     static {
-        super.Fields = super.Fields.concat(["title", "author", "subject", "pages", "price", "issued_to", "regDate", "updateDate", "finned", "finned_amount", "availability", "stoke", "Image"
+        super.Fields = super.Fields.concat(["title", "author", "subject", "pages", "price", "issued_to", "regDate", "updateDate", "finned", "finned_amount", "availability", "stoke", "Image", "IssuedCounts"
         ])
         super.DatabaseKey = 'Books';
     }
-
     // a constructor to create a new student object.
-    constructor({ id, title, author, subject, pages, price, issued_to, regDate, updateDate, finned, finned_amount, availability, stoke, Image }) {
+    constructor({ id, title, author, subject, pages, price, issued_to, regDate, updateDate, finned, finned_amount, availability, stoke, Image, IssuedCounts }) {
 
         super({ id, regDate, updateDate })
         this.title = title;
@@ -288,12 +380,60 @@ export class Book extends LocalDatabase {
         this.stoke = stoke;
         this.Image = Image;
         this.issue = <Issue onClick={() => { this.issueBook() }} />;
+        this.IssuedCounts = IssuedCounts;
     }
 
     issueBook() {
         console.log("issuing this book", this)
         this.constructor.showIssueModal(true);
-        console.log(this.constructor.showIssueModal)
+        this.constructor.setCurrentIssueBook(this)
     }
 
-}   
+
+
+}
+
+
+// a class to extend the Date time functionality.
+
+export class DateTime extends Date {
+
+    static #SM = 60 * 1000;
+    static #SH = 60 * DateTime.#SM;
+    static #SD = 24 * DateTime.#SH;
+    static #SW = 7 * DateTime.#SD;
+    static #SMM = 28 * DateTime.#SD;
+    static #SY = 365 * DateTime.#SD;
+
+
+    addTime({ seconds = 0, minutes = 0, hours = 0, days = 0, months = 0, years = 0 }) {
+        let date_seconds = this.getTime();
+        console.log("new DateTime seconds:", date_seconds)
+        date_seconds = date_seconds + seconds +
+            (DateTime.#SM * minutes) +
+            (DateTime.#SH * hours) +
+            (DateTime.#SD * days) +
+            (DateTime.#SMM * months) +
+            (DateTime.#SY * years)
+
+        console.log("new DateTime seconds:", date_seconds)
+
+        return new DateTime(date_seconds)
+    }
+
+    subtractTime({ seconds = 0, minutes = 0, hours = 0, days = 0, months = 0, years = 0 }) {
+        let date_seconds = Date.parse(this.toISOString());
+        console.log("new DateTime seconds:", date_seconds)
+        date_seconds = date_seconds - (seconds +
+            (DateTime.#SM * minutes) +
+            (DateTime.#SH * hours) +
+            (DateTime.#SD * days) +
+            (DateTime.#SMM * months) +
+            (DateTime.#SY * years))
+
+        console.log("new DateTime seconds:", date_seconds)
+
+        return new DateTime(date_seconds)
+    }
+
+}
