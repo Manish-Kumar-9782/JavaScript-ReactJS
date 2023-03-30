@@ -84,6 +84,7 @@ const Issue = () => {
   IssueEntry.TableFields = [
     "bookTitleId",
     "issuedToId",
+    "userModal",
     "finned",
     "returnStatus",
     "issuedDate",

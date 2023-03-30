@@ -8,8 +8,10 @@ const Card = (props) => {
         <h3 className="card-title text-start">{props.title}</h3>
         <Counter
           modal={props.counterModal}
-          showRecent={props.showCounterRecent}
-          field={props.counterFiled}
+          showRecent={props.showCounterField}
+          field={props.counterField}
+          countCallback={props.countCallback}
+          recentCallback={props.recentCallback}
         />
       </div>
       <div className="card-body d-flex align-items-center gap-5">

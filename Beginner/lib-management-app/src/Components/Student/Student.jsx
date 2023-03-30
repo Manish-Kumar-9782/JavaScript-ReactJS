@@ -126,7 +126,20 @@ const Student = () => {
           />
         </div>
         <div className="col-5">
-          <Card title="Finned" />
+          <Card
+            title="Finned"
+            counterModal={Const.STUDENT}
+            counterField="name"
+            showCounterField={true}
+            countCallback={() => {
+              let amount = 0;
+              // Student.load();
+              St.Records.forEach((rec) => {
+                amount += rec.finned_amount ?? 0;
+              });
+              return amount;
+            }}
+          />
         </div>
       </div>
 

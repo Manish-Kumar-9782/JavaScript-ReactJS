@@ -39,11 +39,24 @@ export function getRecent(modal) {
   }
 }
 
-const Counter = ({ modal, showRecent, field }) => {
+const Counter = ({
+  modal,
+  showRecent,
+  field,
+  countCallback,
+  recentCallback,
+}) => {
   // this will count the total number of item present in a modal
-  const [count, setCount] = useState(getCounts(modal));
-  const [recent, setRecent] = useState(getRecent(modal));
+  const [count, setCount] = useState(
+    countCallback ? countCallback() : getCounts(modal)
+  );
+  const [recent, setRecent] = useState(
+    recentCallback ? recentCallback() : getRecent(modal)
+  );
 
+  useEffect(() => {
+    console.log(modal, "recent : ", recent);
+  }, [recent]);
   // loading all initial values
   const style = {
     padding: "4px 10px",

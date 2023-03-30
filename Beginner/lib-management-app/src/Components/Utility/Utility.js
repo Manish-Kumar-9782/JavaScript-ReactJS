@@ -13,7 +13,7 @@ export class Const {
 }
 
 export class Sorting {
-    static Faker = faker;
+    // static Faker = faker;
     static byDate(instance1, instance2, field) {
         let date1 = new Date(instance1[field]);
         let date2 = new Date(instance2[field]);
