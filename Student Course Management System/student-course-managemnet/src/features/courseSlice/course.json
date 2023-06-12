@@ -1,0 +1,350 @@
+{
+    "Courses": [
+        {
+            "id": "html",
+            "courseName": "HTML",
+            "categories": [
+                "web designing",
+                "web development"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate",
+                "Advance"
+            ]
+        },
+        {
+            "id": "css",
+            "courseName": "CSS",
+            "categories": [
+                "web designing"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate",
+                "Advance"
+            ]
+        },
+        {
+            "id": "javascript",
+            "courseName": "JavaScript",
+            "categories": [
+                "web designing",
+                "web development",
+                "Programming Language"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate",
+                "Advance"
+            ]
+        },
+        {
+            "id": "bootstrap",
+            "courseName": "BootStrap",
+            "categories": [
+                "web designing",
+                "css library"
+            ],
+            "levels": [
+                "Basic"
+            ]
+        },
+        {
+            "id": "react",
+            "courseName": "React",
+            "categories": [
+                "web designing"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate",
+                "Advance"
+            ]
+        },
+        {
+            "id": "jquery",
+            "courseName": "JQuery",
+            "categories": [
+                "web designing",
+                "JavaScript Library"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate",
+                "Advance"
+            ]
+        },
+        {
+            "id": "django",
+            "courseName": "Django",
+            "categories": [
+                "Programming Language",
+                "web development"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate",
+                "Advance"
+            ]
+        },
+        {
+            "id": "php",
+            "courseName": "PHP",
+            "categories": [
+                "Programming Language",
+                "web development"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate"
+            ]
+        },
+        {
+            "id": "laravel",
+            "courseName": "Laravel",
+            "categories": [
+                "Programming Language",
+                "web development"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate"
+            ]
+        },
+        {
+            "id": "java",
+            "courseName": "Java",
+            "categories": [
+                "Programming Language",
+                "web development"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate",
+                "Advance"
+            ]
+        },
+        {
+            "id": "spring",
+            "courseName": "Spring",
+            "categories": [
+                "Programming Language",
+                "web development",
+                "Java Programming"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate",
+                "Advance"
+            ]
+        },
+        {
+            "id": "c",
+            "courseName": "C",
+            "categories": [
+                "Programming Language"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate",
+                "Advance"
+            ]
+        },
+        {
+            "id": "c++",
+            "courseName": "C++",
+            "categories": [
+                "Programming Language"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate",
+                "Advance"
+            ]
+        },
+        {
+            "id": "python",
+            "courseName": "Python",
+            "categories": [
+                "Programming Language"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate",
+                "Advance"
+            ]
+        },
+        {
+            "id": "R",
+            "courseName": "R",
+            "categories": [
+                "Programming Language",
+                "Statistics"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate",
+                "Advance"
+            ]
+        },
+        {
+            "id": "data-science",
+            "courseName": "Data Science",
+            "categories": [
+                "Artificial Intelligence"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate",
+                "Advance"
+            ]
+        },
+        {
+            "id": "data-analytics",
+            "courseName": "Data Analytics",
+            "categories": [
+                "Artificial Intelligence"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate",
+                "Advance"
+            ]
+        },
+        {
+            "id": "machine-learning",
+            "courseName": "Machine Learning",
+            "categories": [
+                "Artificial Intelligence"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate",
+                "Advance"
+            ]
+        },
+        {
+            "id": "deep learning",
+            "courseName": "Deep Learning",
+            "categories": [
+                "Artificial Intelligence"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate",
+                "Advance"
+            ]
+        },
+        {
+            "id": "tkinter",
+            "courseName": "Python Django",
+            "categories": [
+                "Programming Language",
+                "Desktop Application"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate",
+                "Advance"
+            ]
+        },
+        {
+            "id": "node-js",
+            "courseName": "Node Js",
+            "categories": [
+                "JavaScript Development Environment",
+                "web development",
+                "Programming Language"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate",
+                "Advance"
+            ]
+        },
+        {
+            "id": "express",
+            "courseName": "Express",
+            "categories": [
+                "JavaScript Library",
+                "web development"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate",
+                "Advance"
+            ]
+        },
+        {
+            "id": "mysql",
+            "courseName": "MySQL",
+            "categories": [
+                "Database",
+                "web development"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate",
+                "Advance"
+            ]
+        },
+        {
+            "id": "postgresql",
+            "courseName": "PostgreSQL",
+            "categories": [
+                "Database",
+                "web development"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate",
+                "Advance"
+            ]
+        },
+        {
+            "id": "mongodb",
+            "courseName": "MongoDB",
+            "categories": [
+                "Database",
+                "web development"
+            ],
+            "levels": [
+                "Basic",
+                "Intermediate",
+                "Advance"
+            ]
+        }
+    ],
+    "Course-Categories": {
+        "web designing": [
+            "html",
+            "css",
+            "bootstrap",
+            "jquery",
+            "react"
+        ],
+        "web development": [
+            "node-js",
+            "express",
+            "django",
+            "spring",
+            "php",
+            "laravel"
+        ],
+        "languages": [
+            "c",
+            "c++",
+            "python",
+            "javascript",
+            "java",
+            "php",
+            "R"
+        ],
+        "database": [
+            "mysql",
+            "postgresql",
+            "mongodb"
+        ]
+    }
+}
