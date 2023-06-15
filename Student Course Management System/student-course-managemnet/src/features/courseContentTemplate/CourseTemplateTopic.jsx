@@ -8,7 +8,7 @@ import { getTopicById } from "./courseTopicSlice";
 const CourseTemplateTopic = ({ topicId, onAddClick }) => {
   const topic = useSelector((state) => getTopicById(state, topicId));
 
-  console.log(`topic ${topicId}: `, topic);
+  // console.log(`topic ${topicId}: `, topic);
 
   return (
     <>

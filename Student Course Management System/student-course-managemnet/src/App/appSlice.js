@@ -29,7 +29,7 @@ export const appSlice = createSlice({
             state.reload = false;
         },
         resetCourseDataReload(state) {
-            state.reload = false;
+            state.reloadCourseData = false;
         }
     }
 }

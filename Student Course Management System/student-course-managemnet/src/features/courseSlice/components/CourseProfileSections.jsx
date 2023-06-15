@@ -1,11 +1,19 @@
 import React, { useEffect, useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faPlugCircleBolt } from "@fortawesome/free-solid-svg-icons";
-import { addCourseTopic } from "../../courseContentTemplate/courseTopicSlice";
-import { useDispatch, useSelector } from "react-redux";
+import {
+  addCourseTopic,
+  updateAddCourseTopicStatus,
+} from "../../courseContentTemplate/courseTopicSlice";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Form } from "react-bootstrap";
 import BootModal from "../../../Component/BootModal";
 import CourseTemplateTopic from "../../courseContentTemplate/CourseTemplateTopic";
+import { getSectionById } from "../../courseContentTemplate/courseSectionsSlice";
+import { selectSectionById } from "../../../Selectors/course-selectors";
+import { useAddTopicToSection } from "../../../Hooks/record-loader";
+import { useFetchCourseTemplates } from "../../../Hooks/record-loader";
+import CourseSectionTopicMap from "./CourseSectionTopics";
 
 const toBool = (str) => {
   if (str === "true") return true;
@@ -13,11 +21,19 @@ const toBool = (str) => {
   else return new Error("Invalid boolean value: " + str);
 };
 
-const CourseProfileSections = ({ section, courseId, sectionId }) => {
+const CourseProfileSections = ({ courseId, sectionId }) => {
   const dispatch = useDispatch();
+
   const [showModal, setShowModal] = useState(false);
   const [title, setTitle] = useState("");
   const activeTopic = useRef("");
+
+  const section = useSelector(
+    (state) => selectSectionById(state, sectionId),
+    shallowEqual
+  );
+
+  useAddTopicToSection(section);
 
   const handleHideModal = () => {
     setShowModal(false);
@@ -35,6 +51,13 @@ const CourseProfileSections = ({ section, courseId, sectionId }) => {
     );
     setShowModal(false);
     setTitle("");
+    dispatch(
+      updateAddCourseTopicStatus({
+        addStatus: "initiated",
+        topicId: null,
+        sectionId: sectionId,
+      })
+    );
   };
 
   const handleAddClick = (e) => {
@@ -63,17 +86,7 @@ const CourseProfileSections = ({ section, courseId, sectionId }) => {
         </div>
       </header>
 
-      <div className="border ps-2">
-        <ul type="none" className="list-group px-2 py-2">
-          {section?.topics?.map((topic_id) => (
-            <CourseTemplateTopic
-              key={topic_id}
-              topicId={topic_id}
-              onAddClick={handleAddClick}
-            />
-          ))}
-        </ul>
-      </div>
+      <CourseSectionTopicMap section={section} showModal={setShowModal} />
 
       <BootModal
         visibility={showModal}

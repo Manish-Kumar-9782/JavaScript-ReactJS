@@ -57,14 +57,19 @@ export const courseSectionsSlice = createSlice({
     name: 'courseSections',
     initialState,
     reducers: {
-        resetSectionProfileStatus(state) {
+        resetCourseSectionStatus(state) {
             state.status = 'idle';
             state.error = null;
             state.reload = false;
         },
 
-        updateSectionProfileReloadStatus(state, action) {
+        updateCourseSectionReloadStatus(state, action) {
             state.reload = action.payload;
+        },
+        addNewTopic(state, action) {
+            const { sectionId, topicId } = action.payload;
+            // action payload should contain the id of new created topic
+            state.entities[sectionId].topics.push(topicId);
         }
     },
     extraReducers(builder) {
@@ -102,9 +107,11 @@ export const courseSectionsSlice = createSlice({
 })
 // ======================================= SLICE END =======================================//
 
+export const { updateCourseSectionReloadStatus, resetCourseSectionStatus, addNewTopic } = courseSectionsSlice.actions
+
 export default courseSectionsSlice.reducer;
 
 export const getCourseSectionsStatus = (state) => state.courseSections.status;
 export const getCourseSectionsError = (state) => state.courseSections.error;
 
-export const { selectAll: selectAllSections, selectById: getSectionById } = courseSectionsAdapter.getSelectors(state => state.courseSections)
+export const { selectAll: selectAllSections, selectById: getSectionById, selectIds: selectAllSectionsIds } = courseSectionsAdapter.getSelectors(state => state.courseSections)

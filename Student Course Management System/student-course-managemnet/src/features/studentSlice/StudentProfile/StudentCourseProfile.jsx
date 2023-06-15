@@ -20,8 +20,6 @@ const getCourseProfile = createSelector(
 );
 
 const StudentCourseProfile = ({ courseProfileId, courseTemplateId }) => {
-  //courseProfileId
-  // courseTemplateId
   const courseProfile = useSelector(
     (state) => getCourseProfile(state, { courseTemplateId, courseProfileId }),
     shallowEqual

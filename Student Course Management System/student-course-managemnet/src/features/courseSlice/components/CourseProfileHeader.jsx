@@ -5,15 +5,18 @@ import { addCourseSection } from "../../courseContentTemplate/courseSectionsSlic
 import { useDispatch } from "react-redux";
 import { postCourseTemplate } from "../../courseContentTemplate/courseContentTemplateSlice";
 import { fetchCourseSections } from "../../courseContentTemplate/courseSectionsSlice";
+import { useFetchCourseTemplates } from "../../../Hooks/record-loader";
 
 const CourseProfileHeader = ({ course }) => {
   const [showModal, setShowModal] = useState(false);
   const [sectionName, sectSectionName] = useState("");
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchCourseSections({ courseId: course._id }));
-  }, []);
+  useFetchCourseTemplates({
+    courseId: course?._id,
+    sections: true,
+    topics: true,
+  });
 
   const handleHideModal = () => {
     console.log("hiding a modal");
