@@ -234,7 +234,7 @@ export const useAddTopicToSection = (section) => {
             dispatch(updateAddCourseTopicStatus({ addStatus: 'idle', topicId: null }));
             // setStatus(false);
         }
-        console.log("add New Topic status: ", ": ", section?._id, { addTopicStatus, section, newTopicId, sectionId, action })
+        // console.log("add New Topic status: ", ": ", section?._id, { addTopicStatus, section, newTopicId, sectionId, action })
     }, [addTopicStatus, section, sectionId, action, newTopicId, dispatch])
 
     // if (addTopicStatus === 'initiated') {

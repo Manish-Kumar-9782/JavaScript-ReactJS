@@ -1,58 +1,75 @@
 import asyncHandler from "express-async-handler"
 import { courseTopicTemplateModal, courseSectionTemplateModal } from "../models/CourseSections.js"
 import { CourseModel } from "../models/Course.js"
+import { CourseNotFound, SectionNotFound, TopicNotFound, KeyRequired } from "../handlers/ErrorHandlers.js"
+
+
+
+const responseHttp404Handler = (error, res) => {
+
+    if (error instanceof CourseNotFound) {
+        res.status(error.httpStatusCode).send(`CourseNotFound::${error.message} (id:${error.itemId})`)
+    }
+    else if (error instanceof SectionNotFound) {
+        res.status(error.httpStatusCode).send(`SectionNotFound::${error.message} (id:${error.itemId})`)
+    }
+    else if (error instanceof TopicNotFound) {
+        res.status(error.httpStatusCode).send(`TopicNotFound::${error.message} (id:${error.itemId})`)
+    }
+    else if (error instanceof KeyRequired) {
+        res.status(error.httpStatusCode).send(error.message);
+    }
+    else {
+        res.status(500).send("Internal Server Error")
+    }
+}
 
 
 
 const validateTopicPath = async (courseId, sectionId) => {
 
+    if (!courseId || courseId === "undefined") throw new KeyRequired("CourseId", "Course id must be provided, found " + courseId)
+
+    if (!sectionId || sectionId === "undefined") throw new KeyRequired("SectionId", "Section id must be provided, found " + sectionId)
+
     const course = await CourseModel.findById(courseId);
 
-    if (!course) return { course: false, section: false }
+    if (!course) throw new CourseNotFound("There is no course found by given id.", courseId)
 
     const section = await courseSectionTemplateModal.findById(sectionId);
 
-    if (!section) return { course: true, section: false }
+    if (!section) throw new SectionNotFound("There is no section found by given id.", sectionId)
 
     return { course, section };
 }
 
-const onValidationFailed = (course, courseId, section, sectionId, res) => {
-    if (!course) return res.status(404).json({ error: 'There is no course found by id ' + courseId })
-
-    if (!section) return res.status(404).json({ error: `There is no section found by id ${sectionId} within the course id ${courseId}` })
-}
 
 
 const getallTopics = async ({ courseId, sectionId, res }) => {
 
     if (courseId && sectionId) {
-        const course = await CourseModel.findById(courseId);
-        if (!course) res.status(404).json({ error: `Course not found for id ${courseId}` })
-
-        const section = await courseSectionTemplateModal.find({ _id: sectionId, courseId });
-        if (!section) res.status(404).json({ error: `section not found for id ${sectionId} into the course by id ${courseId}` })
+        const { course, section } = validateTopicPath(courseId, sectionId)
 
         const topics = await courseTopicTemplateModal.find({ sectionId: sectionId });
         return res.send(topics)
     }
     else if (courseId) {
         const course = await CourseModel.findById(courseId);
-        if (!course) return res.status(404).json({ error: `Course not found for id ${courseId}` })
-        console.log(`\nCourse sections: ${course.sections}\n`)
-        const topics = await courseTopicTemplateModal.find().where("sectionId").in(course.sections).exec();
+        if (!course) throw new CourseNotFound("There is no such course found by given id", courseId);
+        const topics = await courseTopicTemplateModal.find()
+            .where("sectionId").in(course.sections).exec();
         return res.send(topics)
     }
 }
 
-const getTopicById = async ({ topicId, res }) => {
+const getTopicById = async (topicId) => {
 
-    if (!topicId) res.status(404).json({ error: `ValueError: Topic Id required..` })
+    if (!topicId) throw new KeyRequired("TopicId", "Topic id must be provided, got " + topicId)
 
     // Now if we have topicId then get the data from database.
     const topic = await courseTopicTemplateModal.findById(topicId);
-    if (!topic) res.status(404).json({ error: `Topic by id ${topicId} not found` })
-    return res.send(topic);
+    if (!topic) throw new TopicNotFound("There is not topic found by given id.", topicId)
+    return topic;
 }
 
 
@@ -73,22 +90,30 @@ const addSubTopic = async (topicId, topic, res) => {
 
 //================================================//
 export const getTopics = asyncHandler(async (req, res) => {
+
+    /**
+     *  This api request method will get the courseId, sectionId, and topicId to find the 
+     * correct topic and topics related to the course or section using their ids.
+     * 
+     * if we don't have topic then we will return all topics for given course and section.
+     * 
+     * if we have a topic id then we will return only a single topic.
+     */
+
     const { courseId, sectionId, topicId } = req.params;
 
-    const { course, section } = await validateTopicPath(courseId, sectionId);
+    try {
+        const { course, section } = await validateTopicPath(courseId, sectionId);
 
-    if (course && section) {
         if (topicId) {
-            const res_topic = await courseTopicTemplateModal.findById(topicId);
-            if (!res_topic) return res.status(404).json({ error: 'Topic not found by id: ' + topicId })
+            const res_topic = await getTopicById()
             return res.send(res_topic);
         }
-
         const res_topics = await courseTopicTemplateModal.find().where("_id").in(section.topics).exec();
         return res.send(res_topics);
 
-    } else {
-        return onValidationFailed(course, courseId, section, sectionId, res)
+    } catch (e) {
+        responseHttp404Handler(e, res);
     }
 })
 //================================================//
@@ -97,13 +122,21 @@ export const getTopics = asyncHandler(async (req, res) => {
 //================================================//
 // add a new topic to a given section within the course
 export const addTopic = asyncHandler(async (req, res) => {
+    /**
+     * This api request method will take the courseId, sectionId, and topicId, this will handle the
+     * adding new topic to a section or inside a topic as subtopic,
+     * 
+     * if we don't have any topic id then it means we only add a topic to the sectionTemplate.
+     * 
+     * if we have topicId then we will add a new topic to the to that topic.
+     * 
+     */
+
     const { courseId, sectionId, topicId } = req.params;
-    const { course, section } = await validateTopicPath(courseId, sectionId);
 
+    try {
+        const { course, section } = await validateTopicPath(courseId, sectionId);
 
-    if (course && section) {
-        // console.log(course)
-        // console.log(section)
         const { title } = req.body;
         if (!title) return res.status(406).json({ error: 'title required.' })
         // create a new instance of courseTopicTemplateModal
@@ -129,9 +162,9 @@ export const addTopic = asyncHandler(async (req, res) => {
         }
         return res.status(500).json({ error: `Unable to create a new Topic.` })
 
+    } catch (e) {
+        responseHttp404Handler(e, res);
     }
-
-    return onValidationFailed(course, courseId, section, sectionId, res)
 
 })
 //================================================//
@@ -198,12 +231,35 @@ export const deleteTopic = asyncHandler(async (req, res) => {
 })
 
 //================================================//
-export const updateTopic = (req, res) => {
+export const updateTopic = asyncHandler(async (req, res) => {
 
     const { courseId, sectionId, topicId } = req.params;
-    console.log("update request received: ", req.body);
-    res.json({ data: req.body });
-}
+    console.log("updating topic data: ", req.body);
+    try {
+        // Now first of all we need to get the section from that sectionId.
+        const { course, section } = await validateTopicPath(courseId, sectionId)
+        // Now if we have both of them then we need to get the topic.
+
+        const { points, difficultyLevel, isAdditional, isOptional, title } = req.body.topic;
+        const updates = { points, difficultyLevel, isAdditional, isOptional, title };
+        const response = await courseTopicTemplateModal.findByIdAndUpdate(topicId, updates,
+            { returnDocument: 'after' }).exec();
+
+        console.log("updated response: ", response);
+        // Now we have the topic so we need to update it
+        if (!response) throw new TopicNotFound("Topic not found", topicId);
+
+        return res.json({ message: 'topic updated', data: response });
+    } catch (e) {
+        // 
+        console.error(e)
+        responseHttp404Handler(e, res);
+    }
+    finally {
+        return
+    }
+
+})
 
 //================================================//
 //================================================//
@@ -237,10 +293,14 @@ export const getCourseData = (req, res) => {
 
     if (!get) return res.status(406).json({ error: 'required get with the combination of sectionId and topicId parameters' })
 
-    switch (get) {
-        case 'topic':
-            if (!topicId) return getallTopics({ courseId, sectionId, res })
-            else return getTopicById({ topicId, res })
+    try {
+        switch (get) {
+            case 'topic':
+                if (!topicId) return getallTopics({ courseId, sectionId, res })
+                else return getTopicById({ topicId, res })
+        }
+    } catch (error) {
+        responseHttp404Handler(error, res);
     }
 }
 //================================================//

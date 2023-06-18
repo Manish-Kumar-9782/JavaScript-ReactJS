@@ -31,8 +31,8 @@ const CourseProfile = () => {
         <p>Extended Course Duration : {course?.extendedDuration} Days</p>
         <p>
           Extended Course Duration :{" "}
-          {course?.courseLevels.map((text) => (
-            <Tag text={text} />
+          {course?.courseLevels.map((text, index) => (
+            <Tag key={index} text={text} />
           ))}{" "}
         </p>
       </Card>

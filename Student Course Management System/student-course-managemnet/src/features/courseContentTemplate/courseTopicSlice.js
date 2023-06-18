@@ -54,11 +54,14 @@ export const patchCourseTopic = createAsyncThunk("courseTopic/patchCourseTopic",
         let url = `${COURSE_SECTION_URL}/${courseId}/sections/${sectionId}/topics/${topicId}`;
 
         const response = await axios.patch(url, data);
+        console.log("patch topic response: ", response)
 
-        return response.data.data;
+        if (response.status === 200) {
+            return response.data.data;
+        }
     }
     catch (error) {
-        console.error("PostCourseTopicError: ", error.message);
+        console.error("PostCourseTopicError: ", `error: ${error.message}\nmessage: ${error.response.data}`);
     }
 })
 
@@ -140,6 +143,7 @@ export const courseTopicSlice = createSlice({
 
         builder.addCase(patchCourseTopic.fulfilled, (state, action) => {
             console.log("course Topic updated: ", action.payload)
+            courseTopicAdapter.upsertOne(state, action.payload);
         })
     }
 })

@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { Dispatch } from "@reduxjs/toolkit";
-
 import { Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -8,12 +6,14 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { getTopicById } from "./courseTopicSlice";
 import TopicTemplateActions from "../courseSlice/components/TopicTemplateActions";
 import EditMode from "../courseSlice/TopicActionComponents/EditMode";
-import { updateCourseTopic } from "./courseTopicSlice";
+import { patchCourseTopic } from "./courseTopicSlice";
+import { useParams } from "react-router-dom";
 
 // Course Template Topic
 const CourseTemplateTopic = ({ topicId, onAddClick }) => {
-  const dispatch = useDispatch();
   const [isEdit, setEdit] = useState(false);
+  const { id: courseId } = useParams();
+  const dispatch = useDispatch();
 
   const topic = useSelector(
     (state) => getTopicById(state, topicId),
@@ -21,7 +21,26 @@ const CourseTemplateTopic = ({ topicId, onAddClick }) => {
   );
 
   const editValue = (value) => {
-    dispatch(updateCourseTopic({ ...topic, title: value }));
+    console.log("patch data: ", {
+      courseId,
+      sectionId: topic?.sectionId,
+      topicId: topic?._id,
+      topic: {
+        ...topic,
+      },
+    });
+
+    dispatch(
+      patchCourseTopic({
+        courseId,
+        sectionId: topic?.sectionId,
+        topicId: topic?._id,
+        topic: {
+          ...topic,
+          title: value,
+        },
+      })
+    );
     setEdit(false);
   };
 

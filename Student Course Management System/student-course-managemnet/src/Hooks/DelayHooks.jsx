@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 
-export const useDelayCallback = (value, timeDelay, callback) => {
+export const useDelayCallback = (dependencies, timeDelay, callback) => {
   const [timeId, setTimeId] = useState(null);
   const initial = useRef(true);
 
@@ -25,5 +25,5 @@ export const useDelayCallback = (value, timeDelay, callback) => {
     return () => {
       initial.current = false;
     };
-  }, [value]);
+  }, [...dependencies]);
 };
