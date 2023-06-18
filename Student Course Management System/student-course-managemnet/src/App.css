@@ -46,14 +46,14 @@ a.active {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
 
-  to {
-    transform: rotate(360deg);
-  }
+.show\:hover {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.show\:hover:hover {
+  opacity: 1;
 }
 
 .text-gray-100 {

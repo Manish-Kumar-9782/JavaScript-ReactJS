@@ -47,6 +47,21 @@ export const addCourseTopic = createAsyncThunk("courseTopic/addCourseTopic", asy
     }
 })
 
+export const patchCourseTopic = createAsyncThunk("courseTopic/patchCourseTopic", async (data) => {
+    try {
+        const { courseId, sectionId, topicId, topic } = data;
+
+        let url = `${COURSE_SECTION_URL}/${courseId}/sections/${sectionId}/topics/${topicId}`;
+
+        const response = await axios.patch(url, data);
+
+        return response.data.data;
+    }
+    catch (error) {
+        console.error("PostCourseTopicError: ", error.message);
+    }
+})
+
 // ================================= COURSE ASYNC THUNK END ================================= //
 
 
@@ -77,6 +92,10 @@ export const courseTopicSlice = createSlice({
             state.addTopic = addStatus ? addStatus : state.addTopic
             state.newTopicId = topicId !== undefined ? topicId : state.newTopicId
             state.sectionId = sectionId !== undefined ? sectionId : state.sectionId
+        },
+
+        updateCourseTopic(state, action) {
+            courseTopicAdapter.upsertOne(state, action.payload)
         }
     },
     extraReducers(builder) {
@@ -118,6 +137,10 @@ export const courseTopicSlice = createSlice({
             state.addTopic = 'failed';
             state.error = action.payload.error;
         })
+
+        builder.addCase(patchCourseTopic.fulfilled, (state, action) => {
+            console.log("course Topic updated: ", action.payload)
+        })
     }
 })
 
@@ -132,7 +155,10 @@ export const getCourseTopicError = (state) => state.courseTopic.error
 
 export const { selectAll: getAllTopics, selectById: getTopicById } = courseTopicAdapter.getSelectors(state => state.courseTopic)
 
-export const { resetCourseTopicStatus, updateCourseTopicReloadStatus, updateAddCourseTopicStatus } = courseTopicSlice.actions
+export const { resetCourseTopicStatus,
+    updateCourseTopicReloadStatus,
+    updateAddCourseTopicStatus,
+    updateCourseTopic } = courseTopicSlice.actions
 export default courseTopicSlice.reducer
 
 

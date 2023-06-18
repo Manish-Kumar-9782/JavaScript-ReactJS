@@ -85,7 +85,7 @@ const CourseProfileSections = ({ courseId, sectionId }) => {
           </button>
         </div>
       </header>
-
+      {/* This will list all the course section Topic */}
       <CourseSectionTopicMap section={section} showModal={setShowModal} />
 
       <BootModal

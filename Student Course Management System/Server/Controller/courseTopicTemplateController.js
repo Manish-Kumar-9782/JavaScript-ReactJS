@@ -198,6 +198,15 @@ export const deleteTopic = asyncHandler(async (req, res) => {
 })
 
 //================================================//
+export const updateTopic = (req, res) => {
+
+    const { courseId, sectionId, topicId } = req.params;
+    console.log("update request received: ", req.body);
+    res.json({ data: req.body });
+}
+
+//================================================//
+//================================================//
 
 
 //================================================//

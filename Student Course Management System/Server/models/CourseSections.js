@@ -32,7 +32,23 @@ const courseSectionTemplateSchema = mongoose.Schema({
 const courseTopicTemplateSchema = mongoose.Schema({
     sectionId: String,
     title: String,
-    topics: [String]
+    topics: [String],
+    points: {
+        type: Number,
+        default: 1
+    },
+    difficultyLevel: {
+        type: Number,
+        default: 1
+    },
+    isAdditional: {
+        type: Boolean,
+        default: false
+    },
+    isOptional: {
+        type: Boolean,
+        default: false,
+    },
 })
 
 export const courseTopicTemplateModal = mongoose.model("courseTopicModal", courseTopicTemplateSchema)
