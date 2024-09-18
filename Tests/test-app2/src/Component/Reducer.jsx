@@ -14,7 +14,6 @@ function reducer(state, action) {
             }
             else {
                 return { count: state.count + 1 };
-
             }
 
         case "DECREMENT":
@@ -23,8 +22,8 @@ function reducer(state, action) {
             }
             else {
                 return { count: state.count - 1 };
-
             }
+
         default:
             return state
     }
