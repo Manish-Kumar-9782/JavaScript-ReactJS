@@ -1,44 +1,33 @@
 import { useRef, useEffect, useState } from 'react'
 
-
-
-
 const InputBox = ({ onAdd, onUpdate, updateTodo = null, isUpdate = false, }) => {
 
     const input = useRef(null)
-    const [shouldUpdate, setShouldUpdate] = useState(false)
+    // const [shouldUpdate, setShouldUpdate] = useState(false)
 
     if (isUpdate) {
+        console.log("current updateTodo: ", updateTodo)
         input.current.value = updateTodo.title
     }
 
-    useEffect(() => {
-        const handle_submit = (content) => {
+    const handle_submit = () => {
 
-            console.log("updated content", content)
-            if (isUpdate) {
-                onUpdate({ id: updateTodo.id, title: content })
-                input.current.value = "";
-
-            }
-            else {
-                onAdd(content)
-            }
-
+        console.log("updated content", input.current.value)
+        if (isUpdate) {
+            onUpdate({ id: updateTodo.id, title: input.current.value })
+            input.current.value = "";
         }
-
-        if (shouldUpdate) {
-            handle_submit(input.current.value)
-            setShouldUpdate(false)
+        else {
+            onAdd(input.current.value)
+            input.current.value = "";
         }
-
-    }, [shouldUpdate])
+    }
 
 
     return (
         <div>
             <input ref={input} type="text" />
-            <button type="button" onClick={() => setShouldUpdate(true)}>
+            <button type="button" onClick={handle_submit}>
                 {isUpdate ? 'Update' : 'Add'}
             </button>
         </div>
